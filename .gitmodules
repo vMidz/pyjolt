@@ -1,0 +1,6 @@
+[submodule "jrouwe/JoltPhysics/tree/v5.2.0"]
+	path = jrouwe/JoltPhysics/tree/v5.2.0
+	url = https://github.com/vMidz/pyjolt.git
+[submodule "JoltPhysics"]
+	path = JoltPhysics
+	url = https://github.com/vMidz/JoltPhysics.git

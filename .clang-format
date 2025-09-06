@@ -1,0 +1,25 @@
+# Use LLVM style as a base
+BasedOnStyle: LLVM
+
+# --- Indentation ---
+IndentWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+
+# --- Line Breaking ---
+ColumnLimit: 0
+
+# --- Function Call Arguments ---
+# This stops it from breaking after the multi-line lambda argument.
+BinPackArguments: false
+
+# --- Chained Calls (.def) ---
+# LLVM style usually breaks before the dot and indents correctly
+# with ContinuationIndentWidth when the line exceeds the ColumnLimit.
+# Since ColumnLimit is 0 and BinPackArguments is false, breaks are less likely.
+
+# --- Braces ---
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: None # Keep multi-line lambda structure
