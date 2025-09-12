@@ -48,7 +48,5 @@ If you use vscode you can create a task to start the build process:
 To run the samples app run:
 ```bash
 pip install -r requirements.txt
-cd tests/samples/main.py
+cd tests/samples && main.py
 ```
-
-
