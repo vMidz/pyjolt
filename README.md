@@ -17,7 +17,7 @@ Alternatively:
 pip install --no-build-isolation -ve .
 ```
 
-If you use vscode you can create a task to start the build process
+If you use vscode you can create a task to start the build process:
 ```json
 {
     "version": "2.0.0",
@@ -44,3 +44,11 @@ If you use vscode you can create a task to start the build process
     ]
 }
 ```
+
+To run the samples app run:
+```bash
+pip install -r requirements.txt
+cd tests/samples/main.py
+```
+
+
