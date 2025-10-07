@@ -323,7 +323,7 @@ void BindDebugRenderer(nb::module_ &m) {
         .def(nb::init<Vec3Arg, Vec3Arg, Vec3Arg, ColorArg>(), "v1"_a, "v2"_a, "v3"_a, "color"_a)
         .def(nb::init<Vec3Arg, Vec3Arg, Vec3Arg, ColorArg, Vec3Arg, Vec3Arg>(), "v1"_a, "v2"_a, "v3"_a, "color"_a, "uv_origin"_a, "uv_direction"_a)
 
-        .def("__getitem__", [](const DebugRenderer::Triangle &v, int i) -> const DebugRenderer::Vertex & {
+        .def("__getitem__", [&](const DebugRenderer::Triangle &v, int i) -> const DebugRenderer::Vertex & {
             if (i < 0)
                 i += VERTEX_COUNT; // negative indexing support
 
@@ -333,7 +333,7 @@ void BindDebugRenderer(nb::module_ &m) {
             return v.mV[i];
         }, nb::is_operator(), nb::rv_policy::reference_internal)
 
-        .def("__setitem__", [](DebugRenderer::Triangle &t, int i, const DebugRenderer::Vertex &v) {
+        .def("__setitem__", [&](DebugRenderer::Triangle &t, int i, const DebugRenderer::Vertex &v) {
             if (i < 0)
                 i += 3; // negative indexing support
 
@@ -343,7 +343,7 @@ void BindDebugRenderer(nb::module_ &m) {
             t.mV[i] = v;
         }, nb::is_operator())
 
-        .def("__len__", [](const DebugRenderer::Triangle &t) {
+        .def("__len__", [&](const DebugRenderer::Triangle &t) {
             return VERTEX_COUNT;
         });
 
