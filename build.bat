@@ -1,12 +1,10 @@
 @echo off
 
 set venv_path=%VENV_PATH%
-
 set CMAKE_GENERATOR=Ninja
-
 set CC=clang
-
 set CXX=clang++
+set CMAKE_BUILD_PARALLEL_LEVEL=4
 
 REM Store the original directory
 set "original_dir=%CD%"
@@ -29,6 +27,5 @@ call "%venv_path%\Scripts\activate.bat"
 REM Return to the original directory
 cd /d "%original_dir%"
 
-REM Optional: Confirm virtual environment is active
 echo Virtual environment activated
 python --version
