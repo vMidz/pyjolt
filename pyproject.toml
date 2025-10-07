@@ -20,7 +20,6 @@ build.verbose = true
 cmake.version = ">=3.26.1"
 ninja.version = ">=1.11"
 ninja.make-fallback = true
-build.tool-args = ["-j4"]
 
 # Setuptools-style build caching in a local directory
 build-dir = "build/{wheel_tag}"
