@@ -1,13 +1,13 @@
-import sys
-import os
 import pygame as pg
 import moderngl as mgl
 from ui import UI
-from physics import *
-from camera import *
+from physics import Physics
+from camera import Camera, OrthographicCamera
 from settings import Settings
 from tests.test_common import start_test, Context
 from tests.general.simple_test import SimpleTest
+from pyjolt.math import Vec3, Float2
+from shaders_utility import ViewProjectionUBO, LightUBO
 
 FRAME_RATE = 60
 MOVMENT_SPEED = 5.0
@@ -50,7 +50,7 @@ class App:
 
         self.clock = pg.time.Clock()
 
-        self.main_camera = Camera(CAMERA_POSITION, width/height, 70.0, 0.1, 1000, width, height)
+        self.main_camera = Camera(Camera.INITIAL_POSITION, width/height, 70.0, 0.1, 1000, width, height)
 
         self.view_ubo = ViewProjectionUBO(self.ctx, self.main_camera)
 
@@ -123,15 +123,16 @@ class App:
 
             pg.display.flip()
 
+        self.physics.deinit()
         pg.quit()
 
 def main():
-    from pyRenderdocApp import load_render_doc # type: ignore
-    from pyRenderdocApp.renderdoc_enums import RENDERDOC_CaptureOption, RENDERDOC_OverlayBits # type: ignore
+    # from pyRenderdocApp import load_render_doc # type: ignore
+    # from pyRenderdocApp.renderdoc_enums import RENDERDOC_CaptureOption, RENDERDOC_OverlayBits # type: ignore
 
     # rd = load_render_doc()                # For debugging
     # print(rd.get_api_version())
-    print(os.getpid())
+    # print(os.getpid())
     try:
         app = App(WIDTH, HEIGHT)
         app.run()

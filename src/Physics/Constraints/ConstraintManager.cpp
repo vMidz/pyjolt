@@ -14,8 +14,10 @@ void BindConstraintManager(nb::module_ &m) {
     nb::class_<ConstraintManager, NonCopyable> constraintManagerCls(m, "ConstraintManager",
         "A constraint manager manages all constraints of the same type");
     constraintManagerCls
+#ifdef JPH_ENABLE_ASSERTS
         .def(nb::init<PhysicsLockContext>(), "context"_a,
             "Constructor")
+#endif
         // .def("add", &ConstraintManager::Add, "constraints"_a, "number"_a,
             // "Add a new constraint. This is thread safe.")
         // .def("remove", &ConstraintManager::Remove, "constraint"_a, "number"_a,

@@ -49,8 +49,8 @@ class EnhancedInternalEdgeRemovalTest(Test):
             body_interface.create_and_add_body(compound_bcs, pyjolt.EActivation.ACTIVATE)
             pos += Vec3(0, 0, 7.0)
 
-    def __init__(self, physics_system: pyjolt.PhysicsSystem):
-        super().__init__(physics_system)
+    def __init__(self, ctx: Context):
+        super().__init__(ctx)
         body_interface = self.physics_system.get_body_interface()
         self.level_ball = None
 

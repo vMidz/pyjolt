@@ -33,40 +33,36 @@ find_package(Python 3.8
 # Import nanobind through CMake's find_package mechanism
 find_package(nanobind CONFIG REQUIRED)
 
-set(CMAKE_BUILD_TYPE Debug)
-
 set(PHYSICS_REPO_ROOT "${CMAKE_SOURCE_DIR}/JoltPhysics/Jolt")
-set(OBJECT_LAYER_BITS 16)
 
-set(USE_SSE4_1 ON)                          # Enable SSE
-set(USE_SSE4_2 ON)
-set(USE_AVX ON)
-set(USE_AVX2 ON)
-set(USE_F16C ON)
-set(USE_LZCNT ON)
-set(USE_TZCNT ON)
-set(USE_FMADD ON)
-
-set(INTERPROCEDURAL_OPTIMIZATION ON)        # Enable interprocedural optimizations
-set(ENABLE_OBJECT_STREAM ON)                # Enable Object stream
-set(DEBUG_RENDERER_IN_DEBUG_AND_RELEASE ON) # Enable debug renderer
-set(PROFILER_IN_DISTRIBUTION ON)            # Enable profiler
-set(OVERRIDE_CXX_FLAGS ON)                  # Enable C++ flags
-
-set(USE_AVX512 OFF)                         # Disable AVX512
-set(CPP_EXCEPTIONS_ENABLED OFF)             # Disable C++ exceptions
-set(CROSS_PLATFORM_DETERMINISTIC OFF)       # Disable cross platform determinisim
-set(USE_STD_VECTOR OFF)                     # Disable the use of C++ std libs
-set(TRACK_BROADPHASE_STATS OFF)             # Disable broadphase stats
-set(TRACK_NARROWPHASE_STATS OFF)            # Disable narrowphase stats
-set(DOUBLE_PRECISION OFF)                   # Disable double precision
-set(FLOATING_POINT_EXCEPTIONS_ENABLED OFF)  # Disable fp exception
-set(DISABLE_CUSTOM_ALLOCATOR ON)            # Disable Allocator
+option(OBJECT_LAYER_BITS "Number of bits in ObjectLayer" 16)
+option(USE_SSE4_1 "Enable SSE4.1" ON)
+option(USE_SSE4_2 "Enable SSE4.2" ON)
+option(USE_AVX "Enable AVX" ON)
+option(USE_AVX2 "Enable AVX2" ON)
+option(USE_F16C "Enable F16C" ON)
+option(USE_LZCNT "Enable LZCNT" ON)
+option(USE_TZCNT "Enable TZCNT" ON)
+option(USE_FMADD "Enable FMADD" ON)
+option(INTERPROCEDURAL_OPTIMIZATION "Enable interprocedural optimizations" ON)
+option(ENABLE_OBJECT_STREAM "Enable Object stream" ON)
+option(DEBUG_RENDERER_IN_DEBUG_AND_RELEASE "Enable debug renderer" ON)
+option(PROFILER_IN_DISTRIBUTION "Enable profiler" ON)
+option(OVERRIDE_CXX_FLAGS "Enable C++ flags" ON)
+option(USE_AVX512 "Enable AVX512" OFF)
+option(CPP_EXCEPTIONS_ENABLED "Enable C++ exceptions" OFF)
+option(CROSS_PLATFORM_DETERMINISTIC "Enable cross platform determinism" OFF)
+option(USE_STD_VECTOR "Enable the use of C++ std libs" OFF)
+option(TRACK_BROADPHASE_STATS "Enable broadphase stats" OFF)
+option(TRACK_NARROWPHASE_STATS "Enable narrowphase stats" OFF)
+option(DOUBLE_PRECISION "Enable double precision" OFF)
+option(FLOATING_POINT_EXCEPTIONS_ENABLED "Enable fp exception" OFF)
+option(DISABLE_CUSTOM_ALLOCATOR "Disable Allocator" ON)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CPP_RTTI_ENABLED ON)  # Enable C++ RTTI for debug builds
+    option(CPP_RTTI_ENABLED "Enable C++ RTTI" ON)
 else()
-    set(CPP_RTTI_ENABLED OFF)
+    option(CPP_RTTI_ENABLED "Enable C++ RTTI" OFF)
 endif()
 
 # Add interface lib

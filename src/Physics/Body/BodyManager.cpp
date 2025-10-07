@@ -98,10 +98,15 @@ void BindBodyManager(nb::module_ &m) {
         .def("draw", &BodyManager::Draw, "settings"_a, "physics_settings"_a,
             "renderer"_a, "body_filter"_a = nullptr,
             "Draw the state of the bodies (debugging purposes)")
+#ifdef JPH_ENABLE_ASSERTS
         .def("set_active_bodies_locked", &BodyManager::SetActiveBodiesLocked,
             "locked"_a, "Lock the active body list, asserts when Activate/DeactivateBody is called.")
+#endif
+#ifdef JPH_DEBUG
         .def("validate_active_body_bounds", &BodyManager::ValidateActiveBodyBounds,
-            "Validate if the cached bounding boxes are correct for all active bodies");
+            "Validate if the cached bounding boxes are correct for all active bodies")
+#endif
+            ;
 
     nb::enum_<ESoftBodyConstraintColor>(m, "ESoftBodyConstraintColor", "Defines how to color soft body constraints")
         .value("CONSTRAINT_TYPE", ESoftBodyConstraintColor::ConstraintType,
@@ -178,8 +183,10 @@ void BindBodyManager(nb::module_ &m) {
         .def_rw("draw_soft_body_constraint_color", &BodyManager::DrawSettings::mDrawSoftBodyConstraintColor,
             "Coloring scheme to use for soft body constraints");
 
+#ifdef JPH_ENABLE_ASSERTS
     nb::class_<BodyManager::GrantActiveBodiesAccess>(bodyManagerCls, "GrantActiveBodiesAccess",
         "Per thread override of the locked state, to be used by the PhysicsSystem only!");
+#endif
 
     nb::enum_<BodyManager::EShapeColor>(bodyManagerCls, "EShapeColor")
         .value("INSTANCE_COLOR", BodyManager::EShapeColor::InstanceColor,

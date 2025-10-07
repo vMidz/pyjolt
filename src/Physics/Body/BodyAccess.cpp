@@ -2,6 +2,8 @@
 #include <Jolt/Physics/Body/BodyAccess.h>
 
 void BindBodyAccess(nb::module_ &m) {
+#ifdef JPH_ENABLE_ASSERTS
+
     nb::class_<BodyAccess> bodyAccessCls(m, "BodyAccess");
 
     nb::enum_<BodyAccess::EAccess>(bodyAccessCls, "EAccess",
@@ -23,4 +25,5 @@ void BindBodyAccess(nb::module_ &m) {
         .def_static("check_rights", &BodyAccess::sCheckRights, "current_rights"_a, "desired_rights"_a, "Check if we have permission")
         .def_static("velocity_access", &BodyAccess::sVelocityAccess, "Access to read/write velocities")
         .def_static("position_access", &BodyAccess::sPositionAccess, "Access to read/write positions");
+#endif
 }

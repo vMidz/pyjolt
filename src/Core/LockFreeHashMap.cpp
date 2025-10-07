@@ -25,15 +25,19 @@ auto BindInst(nb::module_ &m, std::string name, const char* doc = "") {
         .def("find", &CurrentInst::Find, "key"_a, "key_hash"_a, "Find an element, returns null if not found")
         .def("to_handle", &CurrentInst::ToHandle, "key_value"_a, "Get convert key value pair to uint32 handle")
         .def("from_handle", &CurrentInst::FromHandle, "handle"_a, "Convert uint32 handle back to key and value")
+#ifdef JPH_ENABLE_ASSERTS
         .def("get_num_key_values", &CurrentInst::GetNumKeyValues,
             "Get the number of key value pairs that this map currently contains.\n"
             "Available only when asserts are enabled because adding elements creates contention on this atomic and negatively affects performance.")
+#endif
         .def("get_all_key_values", &CurrentInst::GetAllKeyValues, "all"_a, "Get all key/value pairs")
         .def("begin", &CurrentInst::begin,
             "Iterate over the map, note that it is not safe to do this in parallel to Clear().\n"
             "It is safe to do this while adding elements to the map, but newly added elements may or may not be returned by the iterator.")
         .def("end", &CurrentInst::end)
+#ifdef JPH_DEBUG
         .def("trace_stats", &CurrentInst::TraceStats, "Output stats about this map to the log")
+#endif
         ;
 
     nb::class_<typename CurrentInst::KeyValue>(lockFreeHashMapCls, "KeyValue")

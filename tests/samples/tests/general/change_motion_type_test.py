@@ -1,7 +1,6 @@
 from tests.test_common import Test, Layers, Context
 import math
 import pyjolt
-from pyjolt import math
 from pyjolt.math import Vec3, Quat
 
 class ChangeMotionTypeTest(Test):

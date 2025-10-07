@@ -25,6 +25,15 @@ static bool AssertFailedImpl(const char *inExpression, const char *inMessage, co
 };
 
 void BindIssueReporting(nb::module_ &m) {
+    m.def("is_debug_enabled", [](){
+#ifdef JPH_ENABLE_ASSERTS
+        return true;
+#else
+        return false;
+#endif
+    });
+
+#ifdef JPH_ENABLE_ASSERTS
     nb::class_<AssertLastParam>(m, "AssertLastParam", "Helper functions to pass message on to failed function");
     m.def("trace",[](const char * str){
 		Trace(str);
@@ -61,4 +70,5 @@ void BindIssueReporting(nb::module_ &m) {
         "expression"_a, "file"_a, "line"_a, "assert_last_param"_a);
     m.def("assert_failed_param_helper", nb::overload_cast<const char *, const char *, uint, const char *, AssertLastParam>(&AssertFailedParamHelper),
         "expression"_a, "file"_a, "line"_a, "message"_a, "assert_last_param"_a);
+#endif
 }

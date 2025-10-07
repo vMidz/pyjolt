@@ -5,10 +5,12 @@ from pyjolt.math import Vec3, Quat
 
 class Listener(pyjolt.BodyActivationListener):
     def on_body_activated(self, body_id: pyjolt.BodyID, body_user_data: int) -> None:
-        pyjolt.trace(f"Body {body_id.get_index()} activated")
+        if pyjolt.is_debug_enabled():
+            pyjolt.trace(f"Body {body_id.get_index()} activated")
 
     def on_body_deactivated(self, body_id: pyjolt.BodyID, body_user_data: int) -> None:
-        pyjolt.trace(f"Body {body_id.get_index()} deactivated")
+        if pyjolt.is_debug_enabled():
+            pyjolt.trace(f"Body {body_id.get_index()} deactivated")
 
 class SimpleTest(Test):
     def __init__(self, ctx: Context):

@@ -1,7 +1,7 @@
 from tests.test_common import Test, Layers, Context
 import pyjolt
 from pyjolt import math
-from pyjolt.math import Vec3, Quat, Float3
+from pyjolt.math import Vec3, Quat
 import random
 
 class FunnelTest(Test):

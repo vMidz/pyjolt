@@ -1,7 +1,7 @@
 import pyjolt
 from pyjolt.math import Vec3, Quat, Mat44, Float3
 from pyjolt import math
-from layers import *
+from layers import Layers
 from camera import Camera
 
 current_test = None

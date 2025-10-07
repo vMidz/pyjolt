@@ -15,7 +15,10 @@ void BindMutex(nb::module_ &m) {
         .def("try_lock", &Mutex::try_lock)
         .def("lock", &Mutex::lock)
         .def("un_lock", &Mutex::unlock)
-        .def("is_locked", &Mutex::is_locked);
+#ifdef JPH_ENABLE_ASSERTS
+        .def("is_locked", &Mutex::is_locked)
+#endif
+        ;
 
     nb::class_<SharedMutex, SharedMutexBase>(m, "Mutex",
         "Very simple wrapper around SharedMutexBase which tracks lock contention in the profiler\n"
@@ -24,6 +27,8 @@ void BindMutex(nb::module_ &m) {
         .def("try_lock", &SharedMutex::try_lock)
         .def("lock", &SharedMutex::lock)
         .def("un_lock", &SharedMutex::unlock)
+#ifdef JPH_ENABLE_ASSERTS
         .def("is_locked", &SharedMutex::is_locked)
+#endif
         .def("lock_shared", &SharedMutex::lock_shared);
 }

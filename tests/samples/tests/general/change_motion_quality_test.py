@@ -1,8 +1,6 @@
 from tests.test_common import Test, Layers, Context
 import pyjolt
-import math
-from pyjolt import math
-from pyjolt.math import Vec3, Quat
+from pyjolt.math import Vec3, Quat, JPH_PI
 
 class ChangeMotionQualityTest(Test):
     def __init__(self, ctx: Context):
@@ -21,8 +19,8 @@ class ChangeMotionQualityTest(Test):
         enclosing_shape_settings = pyjolt.StaticCompoundShapeSettings()
         enclosing_shape_settings.add_shape(Vec3(0, 0, 5), Quat.identity(), box_shape_settings)
         enclosing_shape_settings.add_shape(Vec3(0, 0, -5), Quat.identity(), box_shape_settings)
-        enclosing_shape_settings.add_shape(Vec3(5, 0, 0), Quat.rotation(Vec3.axis_y(), 0.5 * math.JPH_PI), box_shape_settings)
-        enclosing_shape_settings.add_shape(Vec3(-5, 0, 0), Quat.rotation(Vec3.axis_y(), 0.5 * math.JPH_PI), box_shape_settings)
+        enclosing_shape_settings.add_shape(Vec3(5, 0, 0), Quat.rotation(Vec3.axis_y(), 0.5 * JPH_PI), box_shape_settings)
+        enclosing_shape_settings.add_shape(Vec3(-5, 0, 0), Quat.rotation(Vec3.axis_y(), 0.5 * JPH_PI), box_shape_settings)
         
         enclosing_settings = pyjolt.BodyCreationSettings()
         enclosing_settings.set_shape_settings(enclosing_shape_settings)

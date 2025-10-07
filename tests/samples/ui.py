@@ -159,7 +159,8 @@ class UI:
             if self.settings.show_menu:
                 self.settings.show_drawing_options_menu()
 
-            imgui.text(f'{'\t'*5}FPS: {clock.get_fps():.2f}')
+            SPACE = '\t' * 5
+            imgui.text(f'{SPACE}FPS: {clock.get_fps():.2f}')
 
             draw_list = imgui.get_background_draw_list()
             draw_list.add_text(imgui.ImVec2(10, 40), imgui.get_color_u32(imgui.ImVec4(1, 1, 1, 1)), "Press ALT to show/hide cursor")

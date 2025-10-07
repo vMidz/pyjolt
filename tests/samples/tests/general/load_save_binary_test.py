@@ -1,7 +1,6 @@
 
-from tests.test_common import Test, Layers, Context
+from tests.test_common import Test, Context
 import pyjolt
-from pyjolt.math import Vec3
 from tests.general.load_save_scene_test import LoadSaveSceneTest 
 from layers import ObjectVsBroadPhaseLayerFilterImpl, ObjectLayerPairFilterImpl, BPLayerInterfaceImpl
 import io

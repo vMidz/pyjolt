@@ -2,9 +2,7 @@ import pyjolt
 from pyjolt import math
 from pyjolt.math import Vec3, Mat44, Float2, Vec4
 from imgui_bundle import imgui
-from typing import Tuple, Optional
 
-CAMERA_POSITION = Vec3(5.0, 2.5, 10.0)
 MOUSE_SPEED = 0.001
 
 class OrthographicCamera:
@@ -35,6 +33,8 @@ class OrthographicCamera:
         self.light_space = self.projection * self.view
 
 class Camera:
+    INITIAL_POSITION = Vec3(5.0, 2.5, 10.0)
+
     def __init__(self,
                 position: Vec3,
                 aspect: float,
@@ -162,6 +162,6 @@ class Camera:
         return self.frustum.overlaps(world_space_bounds)
 
     def reset(self) -> None:
-        self.position = Vec3(CAMERA_POSITION)
+        self.position = Vec3(self.INITIAL_POSITION)
         self.horizontal_angle = math.degrees_to_radians(180)
         self.vertical_angle = 0.0

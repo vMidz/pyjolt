@@ -37,10 +37,11 @@ class ContactListenerImpl(pyjolt.ContactListener):
         for impulse in result.impulses:
             impulses_str += f"({impulse.contact_impulse:.3f}, {impulse.friction_impulse1:.3f}, {impulse.friction_impulse2:.3f}) "
 
-        pyjolt.trace(f"Estimated velocity after collision, body1: {in_body1.get_id().get_index()}, "
-                     f"v={result.linear_velocity1}, w={result.angular_velocity1}, "
-                     f"body2: {in_body2.get_id().get_index()}, v={result.linear_velocity2}, w={result.angular_velocity2}, "
-                     f"impulses: {impulses_str}")
+        if pyjolt.is_debug_enabled():
+            pyjolt.trace(f"Estimated velocity after collision, body1: {in_body1.get_id().get_index()}, "
+                        f"v={result.linear_velocity1}, w={result.angular_velocity1}, "
+                        f"body2: {in_body2.get_id().get_index()}, v={result.linear_velocity2}, w={result.angular_velocity2}, "
+                        f"impulses: {impulses_str}")
 
         # Log predicted velocities for checking in post_physics_update
         with self.test_instance.predicted_velocities_mutex:

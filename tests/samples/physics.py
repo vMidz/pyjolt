@@ -6,12 +6,12 @@ import numpy as np
 import moderngl as mgl
 from dataclasses import dataclass, field
 from camera import Camera, OrthographicCamera
-from shaders_utility import *
-from layers import *
-from tests.general.simple_test import SimpleTest
+from shaders_utility import load_shader, Text
+from layers import BPLayerInterfaceImpl, ObjectVsBroadPhaseLayerFilterImpl, ObjectLayerPairFilterImpl
 from tests.test_common import pre_physics_update, post_physics_update
 from settings import Settings
 from imgui_bundle import imgui
+from shaders_utility import get_frustum_corners
 
 # Constants
 NUM_BODIES = 10_240
@@ -551,8 +551,9 @@ class Physics:
         pyjolt.new_factory()
         pyjolt.register_types()
 
-        pyjolt.set_trace(trace_func)
-        pyjolt.set_assert(assert_func)
+        if pyjolt.is_debug_enabled():
+            pyjolt.set_trace(trace_func)
+            pyjolt.set_assert(assert_func)
  
         # Create filters
         self.broadPhaseInterface = BPLayerInterfaceImpl()
