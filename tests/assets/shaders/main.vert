@@ -11,8 +11,6 @@ layout(location = 3) out vec2 outUv;
 layout(location = 4) out vec4 outFragPosLightSpace;
 
 void main() {
-    int(aColor);
-
     mat4 model = objects[gl_DrawID].model;
     mat4 inverseNormal = objects[gl_DrawID].inverseNormal;
     int color = objects[gl_DrawID].color;

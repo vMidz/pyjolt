@@ -42,8 +42,6 @@ float calculateShadows(vec4 frag_light_space)
 }
 
 void main() {
-    vec2(inUv);
-
     vec3 lightClr = lightColor.rgb;
 
     // Procedural UV pattern

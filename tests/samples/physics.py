@@ -88,9 +88,9 @@ class RenderPass:
         self.ssbo_bytes.clear()
 
 class DebugRendererImpl(pyjolt.DebugRenderer):
-    LINES_LAYOUT = ('3f 4f1', 'aPos', 'aColor')
-    MESH_LAYOUT = ('3f 3f 2f 1i', 'aPos', 'aNormal', 'aUv', 'aColor')
-    UNINDEXED_LAYOUT = ('3f 4f1', 'in_position', 'in_color')
+    LINES_LAYOUT = ('3f 4f1', 0, 1)
+    MESH_LAYOUT = ('3f 3f 2f 1i', 0, 1, 2, 3)
+    UNINDEXED_LAYOUT = ('3f 4f1', 0, 1)
 
     def __init__(self, physics_system: pyjolt.PhysicsSystem, ctx: mgl.Context, main_camera: Camera, shadow_map_cam: OrthographicCamera, draw_settings: Settings):
         LINES_INITIAL_SIZE = 1024
@@ -141,8 +141,8 @@ class DebugRendererImpl(pyjolt.DebugRenderer):
         self.lines_shader = load_shader(ctx,"lines.vert", "lines.frag")
         self.lines_vao = ctx.vertex_array(
             self.lines_shader,
-            [(self.lines_vbo, *self.LINES_LAYOUT)]
-        )
+            [(self.lines_vbo, *self.LINES_LAYOUT)],
+            skip_errors=True)
         self.lines_data = bytearray()
 
         # Triangles rendering
@@ -158,13 +158,15 @@ class DebugRendererImpl(pyjolt.DebugRenderer):
             self.geom_shader,
             self.geom_vao_layout,
             index_buffer=self.geom_ebo,
-            index_element_size=4 
+            index_element_size=4,
+            skip_errors=True
         )
         self.depth_vao = ctx.vertex_array(
             self.depth_shader,
             self.geom_vao_layout,
             index_buffer=self.geom_ebo,
-            index_element_size=4 
+            index_element_size=4,
+            skip_errors=True
         )
 
         # SSBO Binding
@@ -204,8 +206,8 @@ class DebugRendererImpl(pyjolt.DebugRenderer):
             
             self.lines_vao = self.ctx.vertex_array(
                 self.lines_shader,
-                [(self.lines_vbo, *self.LINES_LAYOUT)]
-            )
+                [(self.lines_vbo, *self.LINES_LAYOUT)],
+                skip_errors=True)
 
         self.lines_vbo.write(self.lines_data, offset=0)
 
@@ -286,11 +288,13 @@ class DebugRendererImpl(pyjolt.DebugRenderer):
         
         self.geom_vao = self.ctx.vertex_array(
             self.geom_shader, self.geom_vao_layout,
-            index_buffer=self.geom_ebo, index_element_size=4
+            index_buffer=self.geom_ebo, index_element_size=4,
+            skip_errors=True
         )
         self.depth_vao = self.ctx.vertex_array(
             self.depth_shader, self.geom_vao_layout,
-            index_buffer=self.geom_ebo, index_element_size=4
+            index_buffer=self.geom_ebo, index_element_size=4,
+            skip_errors=True
         )
 
     def write_ssbo_buffer(self, buffer: mgl.Buffer, data: bytes) -> mgl.Buffer:
@@ -361,8 +365,8 @@ class DebugRendererImpl(pyjolt.DebugRenderer):
         vbo = self.ctx.buffer(self.unindexed_triangles, dynamic=True)
         vao = self.ctx.vertex_array(
             self.unindexed_triangles_shader,
-            [(vbo, *self.UNINDEXED_LAYOUT)]
-        )
+            [(vbo, *self.UNINDEXED_LAYOUT)],
+            skip_errors=True)
         vao.render()
         self.unindexed_triangles.clear()
 
